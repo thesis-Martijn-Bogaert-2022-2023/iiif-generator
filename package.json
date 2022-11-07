@@ -1,0 +1,22 @@
+{
+  "name": "iiif-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartijnBogaert/iiif-generator.git"
+  },
+  "author": "Martijn Bogaert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartijnBogaert/iiif-generator/issues"
+  },
+  "homepage": "https://github.com/MartijnBogaert/iiif-generator#readme",
+  "dependencies": {
+    "@comunica/query-sparql": "^2.4.3"
+  }
+}
