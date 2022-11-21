@@ -55,7 +55,8 @@ async function test() {
   const bindingsStream = await myEngine.queryBindings(query,
     {
       sources: [
-        'https://lodi.ilabt.imec.be/sparql/gent'
+        'https://stad.gent/sparql',
+        //'https://lodi.ilabt.imec.be/sparql/gent',
       ]
     }
   );
