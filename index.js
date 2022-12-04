@@ -1,5 +1,5 @@
-const { QueryEngine } = require('@comunica/query-sparql');
-const { EventEmitter } = require('events').EventEmitter;
+import { QueryEngine } from '@comunica/query-sparql';
+import { EventEmitter } from 'events';
 
 async function getManifestURLs(limit = 10, offset = 0) {
   const comunicaEngine = new QueryEngine();
