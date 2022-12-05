@@ -2,6 +2,7 @@ import { Bindings } from "@rdfjs/types";
 import { Canvas } from "./iiif-types.js";
 import { ManifestBuilder } from "./manifest-builder.js";
 import { CanvasQueryEngine, ManifestQueryEngine } from "./querying.js";
+import { writeFileSync } from "fs";
 
 // Create query engines
 const manifestQueryEngine = new ManifestQueryEngine();
@@ -9,7 +10,7 @@ const canvasQueryEngine = new CanvasQueryEngine();
 
 // Create Manifest Builder
 const manifestBuilder = new ManifestBuilder();
-const AMOUNT_OF_CANVASSES = 2;
+const AMOUNT_OF_CANVASSES = 10;
 let counter = 0;
 
 // Create manifest stream
@@ -31,7 +32,7 @@ manifestStream.on("data", async (manifest: Bindings) => {
     counter++;
 
     if (counter >= 2) {
-      console.log(manifestBuilder.getManifest());
+      writeFileSync("./manifest.json", manifestBuilder.getManifest());
     }
   });
 
