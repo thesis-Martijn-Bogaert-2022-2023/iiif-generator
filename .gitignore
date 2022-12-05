@@ -105,3 +105,6 @@ dist
 
 # VS Code settings
 .vscode/*
+
+# Generated IIIF Manifest
+manifest.json

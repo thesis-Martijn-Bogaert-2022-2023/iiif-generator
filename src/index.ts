@@ -31,7 +31,7 @@ manifestStream.on("data", async (manifest: Bindings) => {
     manifestBuilder.addCanvas(newCanvas);
     counter++;
 
-    if (counter >= 2) {
+    if (counter >= AMOUNT_OF_CANVASSES) {
       writeFileSync("./manifest.json", manifestBuilder.getManifest());
     }
   });
