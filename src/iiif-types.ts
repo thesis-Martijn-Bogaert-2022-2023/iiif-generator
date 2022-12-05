@@ -3,12 +3,48 @@ import { Bindings } from "@rdfjs/types";
 const TAB_OUTPUT = "- ";
 
 export class Canvas {
-  private id: string;
-  private label: string;
-  private height: number;
-  private width: number;
-  private image: Image;
+  // Properties
+  private _id: string;
+  private _label: string;
+  private _height: number;
+  private _width: number;
+  private _image: Image;
 
+  // Getters
+  public get id(): string {
+    return this._id;
+  }
+  public get label(): string {
+    return this._label;
+  }
+  public get height(): number {
+    return this._height;
+  }
+  public get width(): number {
+    return this._width;
+  }
+  public get image(): Image {
+    return this._image;
+  }
+
+  // Setters
+  public set id(value: string) {
+    this._id = value;
+  }
+  public set label(value: string) {
+    this._label = value;
+  }
+  public set height(value: number) {
+    this._height = value;
+  }
+  public set width(value: number) {
+    this._width = value;
+  }
+  public set image(value: Image) {
+    this._image = value;
+  }
+
+  // Constructors
   constructor(
     id: string,
     label: string,
@@ -23,6 +59,7 @@ export class Canvas {
     this.image = image;
   }
 
+  // Public methods
   toString(depth = 0): string {
     const tab = TAB_OUTPUT.repeat(depth);
     return `
@@ -34,6 +71,7 @@ ${tab}image: ${this.image.toString(depth + 1)}
     `;
   }
 
+  // Static methods
   static fromBindings(bindings: Bindings) {
     return new Canvas(
       bindings.get("canvas").value,
@@ -46,12 +84,48 @@ ${tab}image: ${this.image.toString(depth + 1)}
 }
 
 export class Image {
-  private attribution: string;
-  private license: string;
-  private motivation: string;
-  private on: string;
-  private resource: Resource;
+  // Properties
+  private _attribution: string;
+  private _license: string;
+  private _motivation: string;
+  private _on: string;
+  private _resource: Resource;
 
+  // Getters
+  public get attribution(): string {
+    return this._attribution;
+  }
+  public get license(): string {
+    return this._license;
+  }
+  public get motivation(): string {
+    return this._motivation;
+  }
+  public get on(): string {
+    return this._on;
+  }
+  public get resource(): Resource {
+    return this._resource;
+  }
+
+  // Setters
+  public set attribution(value: string) {
+    this._attribution = value;
+  }
+  public set license(value: string) {
+    this._license = value;
+  }
+  public set motivation(value: string) {
+    this._motivation = value;
+  }
+  public set on(value: string) {
+    this._on = value;
+  }
+  public set resource(value: Resource) {
+    this._resource = value;
+  }
+
+  // Constructors
   constructor(
     attribution: string,
     license: string,
@@ -66,6 +140,7 @@ export class Image {
     this.resource = resource;
   }
 
+  // Public methods
   toString(depth = 0): string {
     const tab = TAB_OUTPUT.repeat(depth);
     return `
@@ -77,6 +152,7 @@ ${tab}resource: ${this.resource.toString(depth + 1)}
     `;
   }
 
+  // Static methods
   static fromBindings(bindings: Bindings) {
     return new Image(
       bindings.get("image_attribution").value,
@@ -89,12 +165,48 @@ ${tab}resource: ${this.resource.toString(depth + 1)}
 }
 
 export class Resource {
-  private id: string;
-  private format: string;
-  private height: number;
-  private width: number;
-  private service: Service;
+  // Properties
+  private _id: string;
+  private _format: string;
+  private _height: number;
+  private _width: number;
+  private _service: Service;
 
+  // Getters
+  public get id(): string {
+    return this._id;
+  }
+  public get format(): string {
+    return this._format;
+  }
+  public get height(): number {
+    return this._height;
+  }
+  public get width(): number {
+    return this._width;
+  }
+  public get service(): Service {
+    return this._service;
+  }
+
+  // Setters
+  public set id(value: string) {
+    this._id = value;
+  }
+  public set format(value: string) {
+    this._format = value;
+  }
+  public set height(value: number) {
+    this._height = value;
+  }
+  public set width(value: number) {
+    this._width = value;
+  }
+  public set service(value: Service) {
+    this._service = value;
+  }
+
+  // Constructors
   constructor(
     id: string,
     format: string,
@@ -109,6 +221,7 @@ export class Resource {
     this.service = service;
   }
 
+  // Public methods
   toString(depth = 0): string {
     const tab = TAB_OUTPUT.repeat(depth);
     return `
@@ -120,6 +233,7 @@ ${tab}service: ${this.service.toString(depth + 1)}
     `;
   }
 
+  // Static methods
   static fromBindings(bindings: Bindings) {
     return new Resource(
       bindings.get("resource").value,
@@ -132,14 +246,33 @@ ${tab}service: ${this.service.toString(depth + 1)}
 }
 
 export class Service {
-  private id: string;
-  private profile: string;
+  // Properties
+  private _id: string;
+  private _profile: string;
 
+  // Getters
+  public get id(): string {
+    return this._id;
+  }
+  public get profile(): string {
+    return this._profile;
+  }
+
+  // Setters
+  public set id(value: string) {
+    this._id = value;
+  }
+  public set profile(value: string) {
+    this._profile = value;
+  }
+
+  // Constructors
   constructor(id: string, profile: string) {
     this.id = id;
     this.profile = profile;
   }
 
+  // Public methods
   toString(depth = 0): string {
     const tab = TAB_OUTPUT.repeat(depth);
     return `
@@ -148,6 +281,7 @@ ${tab}profile: ${this.profile}
     `;
   }
 
+  // Static methods
   static fromBindings(bindings: Bindings) {
     return new Service(
       bindings.get("service").value,
