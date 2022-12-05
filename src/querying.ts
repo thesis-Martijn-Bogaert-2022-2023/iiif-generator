@@ -12,9 +12,9 @@ export class ManifestQueryEngine {
       SELECT ?manifest
       FROM <http://stad.gent/ldes/hva>
       WHERE { 
-        # object
+        # Object
         ?object a cidoc:E22_Man-Made_Object.
-        # manifest
+        # Manifest
         OPTIONAL { ?o cidoc:P129i_is_subject_of ?manifest. }
       }
       LIMIT ${limit}
@@ -46,12 +46,42 @@ export class CanvasQueryEngine {
       PREFIX iiif: <http://iiif.io/api/presentation/2#>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX ns: <http://www.w3.org/2003/12/exif/ns#>
+      PREFIX pres: <http://iiif.io/api/presentation/2#>
+      PREFIX oa: <http://www.w3.org/ns/oa#>
+      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX terms: <http://purl.org/dc/terms/>
+      PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
+      PREFIX elem: <http://purl.org/dc/elements/1.1/>
+      PREFIX exif: <http://www.w3.org/2003/12/exif/ns#>
+      PREFIX siocserv: <http://rdfs.org/sioc/services#>
+      PREFIX doap: <http://usefulinc.com/ns/doap#>
+
       SELECT  *
       WHERE {
-        ?canvas a iiif:Canvas.
-        ?canvas rdfs:label ?label.
-        ?canvas ns:height ?height.
-        ?canvas ns:width ?width.
+          # Canvas
+          ?canvas a iiif:Canvas.
+          ?canvas rdfs:label ?canvas_label.
+          ?canvas ns:height ?canvas_height.
+          ?canvas ns:width ?canvas_width.
+          ?canvas pres:hasImageAnnotations/rdf:first ?image.
+        
+          # Image
+          ?image a oa:Annotation.
+          ?image iiif:attributionLabel ?image_attribution.
+          ?image terms:rights ?image_license.
+          ?image oa:motivatedBy ?image_motivation.
+          ?image oa:hasTarget ?image_on.
+          ?image oa:hasBody ?resource.
+        
+          # Resource
+          ?resource a dcmitype:Image.
+          ?resource elem:format ?resource_format.
+          ?resource exif:height ?resource_height.
+          ?resource exif:width ?resource_width.
+          ?resource siocserv:has_service ?service.
+        
+          # Service
+          ?service doap:implements ?service_profile.
       }
       LIMIT 1
     `;
