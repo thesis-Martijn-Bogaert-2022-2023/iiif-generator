@@ -1,4 +1,5 @@
 import { Bindings } from "@rdfjs/types";
+import { Canvas } from "./iiif-types.js";
 import { CanvasQueryEngine, ManifestQueryEngine } from "./querying.js";
 
 // Create query engines
@@ -20,7 +21,7 @@ manifestStream.on("data", async (manifest: Bindings) => {
 
   // Handle new canvas
   canvasStream.on("data", (canvas: Bindings) => {
-    console.log(counter++, ")", "NEW canvas:", canvas.toString());
+    console.log(counter++, Canvas.getCanvasFromBindings(canvas));
   });
 
   // Handle successful canvas stream ending
