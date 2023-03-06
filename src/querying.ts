@@ -10,7 +10,7 @@ export class ManifestQueryEngine {
     return `
       PREFIX cidoc: <http://www.cidoc-crm.org/cidoc-crm/>
       SELECT ?manifest
-      FROM <http://stad.gent/ldes/hva>
+      FROM <http://stad.gent/ldes/archief>
       WHERE { 
         # Object
         ?object a cidoc:E22_Man-Made_Object.

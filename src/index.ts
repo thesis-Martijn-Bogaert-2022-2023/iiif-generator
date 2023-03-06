@@ -22,24 +22,34 @@ const manifestStream = await manifestQueryEngine.getManifestURLs(
 manifestStream.on("data", async (manifest: Bindings) => {
   // Create canvas stream
   const url = manifest.get("manifest").value;
-  const canvasStream = await canvasQueryEngine.getManifestCanvas(url);
+  try {
+    const canvasStream = await canvasQueryEngine.getManifestCanvas(url);
 
-  // Handle new canvas
-  canvasStream.on("data", (canvas: Bindings) => {
-    const newCanvas = Canvas.fromBindings(canvas);
-    console.log(counter + 1, newCanvas.toString());
-    manifestBuilder.addCanvas(newCanvas);
+    // Handle new canvas
+    canvasStream.on("data", (canvas: Bindings) => {
+      const newCanvas = Canvas.fromBindings(canvas);
+      console.log(counter + 1, newCanvas.toString());
+      manifestBuilder.addCanvas(newCanvas);
+      counter++;
+
+      if (counter >= AMOUNT_OF_CANVASSES) {
+        writeFileSync("./manifest.json", manifestBuilder.getManifest());
+      }
+    });
+
+    // Handle unsuccessful canvas stream ending
+    canvasStream.on("error", (error: string) => {
+      console.error("ERR canvas stream", error);
+    });
+  } catch (error) {
+    console.log(counter + 1, "ERR manifest query");
+    console.error(counter + 1, error);
     counter++;
 
     if (counter >= AMOUNT_OF_CANVASSES) {
       writeFileSync("./manifest.json", manifestBuilder.getManifest());
     }
-  });
-
-  // Handle unsuccessful canvas stream ending
-  canvasStream.on("error", (error: string) => {
-    console.error("ERR canvas stream", error);
-  });
+  }
 });
 
 // Handle unsuccessful manifest stream ending
